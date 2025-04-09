@@ -18,7 +18,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 const corsOptions = {
-  origin: ["https://localhost:5173"], // Your frontend URL
+  origin: ["https://sanchita-enterprises.netlify.app/"], // Your frontend URL
   methods: ["GET", "POST", "DELETE", "PUT"],
 };
 app.use(cors(corsOptions));
