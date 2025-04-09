@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import add_product_icon from "../../assets/Product_Cart.svg";
-import list_product_icon from "../../assets/Product_list_icon.svg";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { CiViewList } from "react-icons/ci";
 

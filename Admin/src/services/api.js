@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/products`;
 
 // Add Product
 export const addProduct = async (product) => {
@@ -13,13 +13,9 @@ export const addProduct = async (product) => {
     }
   }
 
-  const response = await axios.post(
-    "http://localhost:5000/api/products",
-    formData,
-    {
-      headers: { "Content-Type": "multipart/form-data" },
-    }
-  );
+  const response = await axios.post(API_URL, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
 
