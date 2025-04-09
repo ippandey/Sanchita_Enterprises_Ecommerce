@@ -18,13 +18,12 @@ const ProductPage = () => {
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/products/${id}`
-        );
+        const response = await axios.get(`${API_URL}/products/${id}`);
         setProduct(response.data);
       } catch (err) {
         setError("Product not found!");

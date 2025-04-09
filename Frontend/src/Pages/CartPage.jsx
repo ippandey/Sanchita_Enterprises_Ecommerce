@@ -12,6 +12,7 @@ const CartPage = () => {
   const [loading, setLoading] = useState(true);
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState(0);
+  const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
   useEffect(() => {
     if (!user) {
@@ -21,7 +22,7 @@ const CartPage = () => {
 
     // Fetch cart from backend using user._id
     axios
-      .get(`http://localhost:5000/api/cart/${user._id}`)
+      .get(`${API_URL}/cart/${user._id}`)
       .then((res) => {
         setCart(res.data);
         setLoading(false);
@@ -34,7 +35,7 @@ const CartPage = () => {
 
   const handleRemoveItem = (id) => {
     axios
-      .delete(`http://localhost:5000/api/cart/remove/${id}`)
+      .delete(`${API_URL}/cart/remove/${id}`)
       .then(() => {
         setCart((prevCart) => prevCart.filter((item) => item._id !== id));
       })
@@ -54,7 +55,7 @@ const CartPage = () => {
 
     // Then make the API call
     axios
-      .put(`http://localhost:5000/api/cart/update/${id}`, {
+      .put(`${API_URL}/cart/update/${id}`, {
         quantity: newQuantity,
       })
       .catch((error) => {

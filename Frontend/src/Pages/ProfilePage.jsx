@@ -4,10 +4,11 @@ import { useAuth } from "../Context/AuthContext";
 const ProfilePage = () => {
   const { user, logout, loading } = useAuth();
   const [orders, setOrders] = useState([]);
+  const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/api/orders?user=${user._id}`)
+      fetch(`${API_URL}/orders?user=${user._id}`)
         .then((res) => res.json())
         .then((data) => setOrders(data));
     }
