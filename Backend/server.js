@@ -92,17 +92,30 @@ app.post("/api/products", upload, async (req, res) => {
     const { title, category, price, originalPrice, stock, description, sizes } =
       req.body;
 
+    // // Construct full image URLs
+    // const image = req.files["imageFile"]
+    //   ? `${req.protocol}://${req.get("host")}/uploads/${
+    //       req.files["imageFile"][0].filename
+    //     }`
+    //   : "";
+
+    // const gallery = req.files["galleryFiles"]
+    //   ? req.files["galleryFiles"].map(
+    //       (file) =>
+    //         `${req.protocol}://${req.get("host")}/uploads/${file.filename}`
+    //     )
+    //   : [];
+    const baseUrl =
+      process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+
     // Construct full image URLs
     const image = req.files["imageFile"]
-      ? `${req.protocol}://${req.get("host")}/uploads/${
-          req.files["imageFile"][0].filename
-        }`
+      ? `${baseUrl}/uploads/${req.files["imageFile"][0].filename}`
       : "";
 
     const gallery = req.files["galleryFiles"]
       ? req.files["galleryFiles"].map(
-          (file) =>
-            `${req.protocol}://${req.get("host")}/uploads/${file.filename}`
+          (file) => `${baseUrl}/uploads/${file.filename}`
         )
       : [];
 
