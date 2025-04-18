@@ -12,6 +12,7 @@ import OurStory from "../Components/HomePage/OurStory";
 import Blogs from "../Components/HomePage/Blogs";
 import Testimonials from "../Components/HomePage/Testimonials";
 import FAQ from "../Components/HomePage/FAQ";
+import ScrollToTopButton from "../Components/HomePage/ScrollToTopButton";
 
 const HomePage = () => {
   return (
@@ -54,6 +55,9 @@ const HomePage = () => {
 
       {/* FAQ Section */}
       <FAQ />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTopButton />
     </div>
   );
 };

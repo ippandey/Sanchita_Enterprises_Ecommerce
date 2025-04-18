@@ -1,78 +1,3 @@
-// import React from "react";
-// import blog_pic1 from "./../../assets/blog_pic1.webp";
-// import blog_pic2 from "./../../assets/blog_pic2.webp";
-// import blog_pic3 from "./../../assets/blog_pic3.webp";
-// import { motion } from "motion/react";
-
-// const BlogCards = [
-//   {
-//     id: 1,
-//     image: blog_pic1,
-//     tag: "Innovation ",
-//     comments: 3,
-//     title: "The Future of Textile Chemicals: Trends & Innovations",
-//   },
-
-//   {
-//     id: 2,
-//     image: blog_pic2,
-//     tag: "Sustainability ",
-//     comments: 1,
-//     title: "A Step Towards Green Manufacturing",
-//   },
-//   {
-//     id: 3,
-//     image: blog_pic3,
-//     tag: "Application ",
-//     comments: 2,
-//     title: "Choosing the Right Chemicals for Fabric Treatment",
-//   },
-// ];
-
-// const Blogs = () => {
-//   return (
-//     <section>
-//       <div className="m-20">
-//         {/* Heading section */}
-//         <div className="mb-12">
-//           <h1 className="text-5xl font-cormorant font-medium mb-4">
-//             From Expert Formulations to Textile Innovations
-//           </h1>
-//           <p className="text-gray-500 font-work">
-//             Stay Updated with the Latest in Textile Chemicals
-//           </p>
-//         </div>
-
-//         {/* Blogs Card */}
-//         <div className="flex gap-10">
-//           {BlogCards.map((item, index) => (
-//             <div key={index} className="w-1/3 overflow-hidden">
-//               <motion.img
-//                 src={item.image}
-//                 alt="BlogPic1"
-//                 whileHover={{ scale: 1.05 }}
-//                 transition={{ duration: 0.4, ease: "easeInOut" }}
-//                 className="w-full mb-5"
-//               />
-//               <div className="flex gap-10 mb-5">
-//                 <p className="text-gray-500">{item.tag}</p>
-//                 <p className="text-gray-500">{item.comments} Comments</p>
-//               </div>
-
-//               <h3 className="text-2xl mb-5">{item.title}</h3>
-//               <button className="uppercase underline text-gray-700 font-medium text-sm">
-//                 More Details
-//               </button>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Blogs;
-
 import React, { useState } from "react";
 import blog_pic1 from "./../../assets/blog_pic1.webp";
 import blog_pic2 from "./../../assets/blog_pic2.webp";
@@ -83,7 +8,7 @@ const BlogCards = [
   {
     id: 1,
     image: blog_pic1,
-    tag: "Innovation ",
+    tag: "Innovation",
     comments: 3,
     title: "The Future of Textile Chemicals: Trends & Innovations",
     description:
@@ -92,7 +17,7 @@ const BlogCards = [
   {
     id: 2,
     image: blog_pic2,
-    tag: "Sustainability ",
+    tag: "Sustainability",
     comments: 1,
     title: "A Step Towards Green Manufacturing",
     description:
@@ -101,7 +26,7 @@ const BlogCards = [
   {
     id: 3,
     image: blog_pic3,
-    tag: "Application ",
+    tag: "Application",
     comments: 2,
     title: "Choosing the Right Chemicals for Fabric Treatment",
     description:
@@ -117,39 +42,44 @@ const Blogs = () => {
   };
 
   return (
-    <section>
-      <div className="m-20">
-        {/* Heading section */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-cormorant font-medium mb-4">
+    <section id="blogs" className="px-4 sm:px-6 lg:px-20 py-10">
+      <div>
+        {/* Heading */}
+        <div className="mb-12 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cormorant font-medium mb-4">
             From Expert Formulations to Textile Innovations
           </h1>
-          <p className="text-gray-500 font-work">
+          <p className="text-gray-500 font-work text-sm sm:text-base">
             Stay Updated with the Latest in Textile Chemicals
           </p>
         </div>
 
-        {/* Blogs Card */}
-        <div className="flex gap-10">
+        {/* Blog Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {BlogCards.map((item) => (
-            <div key={item.id} className="w-1/3 overflow-hidden">
+            <div key={item.id} className="overflow-hidden">
               <motion.img
                 src={item.image}
                 alt={item.title}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="w-full mb-5"
+                className="w-full h-56 sm:h-60 object-cover rounded-md mb-5"
               />
-              <div className="flex gap-10 mb-5">
-                <p className="text-gray-500">{item.tag}</p>
-                <p className="text-gray-500">{item.comments} Comments</p>
+
+              <div className="flex gap-6 text-sm mb-4 text-gray-500">
+                <p>{item.tag}</p>
+                <p>{item.comments} Comments</p>
               </div>
 
-              <h3 className="text-2xl mb-5">{item.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                {item.title}
+              </h3>
 
               {expanded === item.id ? (
                 <div className="bg-gray-100 p-4 rounded-md mb-3">
-                  <p className="text-gray-700 mb-3">{item.description}</p>
+                  <p className="text-gray-700 mb-3 text-sm sm:text-base">
+                    {item.description}
+                  </p>
                   <button
                     className="uppercase underline text-gray-700 font-medium text-sm"
                     onClick={() => toggleExpand(item.id)}

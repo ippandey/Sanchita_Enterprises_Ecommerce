@@ -3,13 +3,13 @@ import { CiSearch } from "react-icons/ci";
 import { FaShoppingBag } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import { PiShoppingCartThin, PiUserCircleLight } from "react-icons/pi";
-import { NavLink, Link } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext"; // Import AuthContext
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 import { CartContext } from "../../Context/CartContext";
 import ResponsiveMenu from "./ResponsiveMenu";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext); // Get user and logout function
+  const { user, logout } = useContext(AuthContext);
   const { cartCount } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -17,19 +17,35 @@ const Navbar = () => {
   const NavbarMenu = [
     { title: "Home", path: "/home" },
     { title: "Shop", path: "/shop" },
-    { title: "Blogs", path: "/blogs" },
-    { title: "Contact", path: "/contact" },
+    { title: "Blogs", path: "#blogs" },
+    { title: "Contact", path: "#contact" },
   ];
+
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    if (path.startsWith("#")) {
+      // Go to home then scroll
+      navigate("/");
+      setTimeout(() => {
+        const el = document.querySelector(path);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100); // Give time for home to render
+    } else {
+      navigate(path);
+    }
+    setOpen(false);
+  };
 
   return (
     <>
       <nav className="sticky top-0 z-50 bg-white shadow-md">
-        <div className="container flex justify-between items-center py-4 px-16">
+        <div className="container flex justify-between items-center py-4 px-4 md:px-16">
           {/* Logo Section */}
-          <div className="text-2xl flex items-center gap-3">
+          <div className="text-xl md:text-2xl lg:text-3xl flex items-center gap-2">
             <Link to="/home" className="flex items-center gap-2">
               <FaShoppingBag />
-              <p className="font-cormorant uppercase font-medium tracking-wide">
+              <p className="font-cormorant uppercase font-medium tracking-wide text-base md:text-lg lg:text-xl">
                 Sanchita Enterprises
               </p>
             </Link>
@@ -40,27 +56,23 @@ const Navbar = () => {
             <ul className="flex items-center gap-6 text-gray-600">
               {NavbarMenu.map((item, index) => (
                 <li key={index}>
-                  <NavLink
-                    to={item.path}
+                  <button
+                    onClick={() => handleNavigation(item.path)}
                     className="inline-block px-2 uppercase hover:underline font-work text-sm font-medium"
                   >
                     {item.title}
-                  </NavLink>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Icons Section */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <button className="text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200">
               <CiSearch />
             </button>
-            {/* <Link to="/cart">
-              <button className="text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200">
-                <PiShoppingCartThin />
-              </button>
-            </Link> */}
+
             <Link to="/cart">
               <button className="text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200 relative">
                 <PiShoppingCartThin />
@@ -72,7 +84,6 @@ const Navbar = () => {
               </button>
             </Link>
 
-            {/* Conditional Rendering for Login / User Icon */}
             {user ? (
               <div className="relative">
                 <button
@@ -81,8 +92,6 @@ const Navbar = () => {
                 >
                   <PiUserCircleLight />
                 </button>
-
-                {/* Profile Dropdown */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-lg overflow-hidden">
                     <Link
@@ -102,23 +111,25 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login">
-                <button className="w-24 h-10 text-center font-medium font-work text-[#202025] border-[1px] border-[#202025] rounded-md hover:bg-[#202025] hover:text-white hidden md:block">
+              <Link to="/login" className="hidden md:block">
+                <button className="w-24 h-10 text-center font-medium font-work text-[#202025] border border-[#202025] rounded-md hover:bg-[#202025] hover:text-white transition">
                   Login
                 </button>
               </Link>
             )}
-          </div>
 
-          {/* Mobile Hamburger Menu */}
-          <div className="md:hidden" onClick={() => setOpen(!open)}>
-            <MdMenu className="text-4xl cursor-pointer" />
+            {/* Mobile Hamburger Menu */}
+            <div className="md:hidden">
+              <MdMenu
+                className="text-3xl cursor-pointer"
+                onClick={() => setOpen(!open)}
+              />
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Sidebar */}
-      <ResponsiveMenu open={open} />
+      <ResponsiveMenu open={open} setOpen={setOpen} user={user} />
     </>
   );
 };
