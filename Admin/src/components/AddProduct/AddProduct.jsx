@@ -79,15 +79,16 @@ const AddProduct = ({ onAdd }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="m-5 p-5 border rounded-lg shadow font-work"
+      className="m-5 p-5 border rounded-lg shadow font-work w-full max-w-2xl mx-auto"
     >
-      <h2 className="text-2xl font-medium font-work mb-4">Add Product</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Add Product</h2>
+
       <input
         name="title"
         placeholder="Title"
         value={product.title}
         onChange={handleChange}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
         required
       />
       <input
@@ -95,18 +96,17 @@ const AddProduct = ({ onAdd }) => {
         placeholder="Category"
         value={product.category}
         onChange={handleChange}
-        className="border-2 p-2 mb-5 w-2/3"
+        className="border-2 p-2 mb-5 w-full"
         required
       />
 
       {/* Main Image Upload */}
-      <label className="block font-medium font-work mb-1">Main Image:</label>
+      <label className="block font-medium mb-1">Main Image:</label>
       <input
         type="file"
         accept="image/*"
         onChange={handleMainImageUpload}
-        className="border-2 p-2 mb-5 w-2/3
-        "
+        className="border-2 p-2 mb-5 w-full"
       />
       {product.image && (
         <img
@@ -116,24 +116,22 @@ const AddProduct = ({ onAdd }) => {
         />
       )}
 
-      {/* Gallery Images Upload */}
-      <label className="block font-medium font-work mb-1 mt-2">
-        Gallery Images:
-      </label>
+      {/* Gallery Upload */}
+      <label className="block font-medium mb-1">Gallery Images:</label>
       <input
         type="file"
         accept="image/*"
         multiple
         onChange={handleGalleryUpload}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
       />
-      <div className="flex gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-2">
         {product.gallery.slice(1).map((img, index) => (
           <img
             key={index}
             src={img}
             alt={`Gallery ${index}`}
-            className="w-20 h-20 object-cover mb-5"
+            className="w-20 h-20 object-cover mb-3"
           />
         ))}
       </div>
@@ -144,7 +142,7 @@ const AddProduct = ({ onAdd }) => {
         type="number"
         value={product.price}
         onChange={handleChange}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
         required
       />
       <input
@@ -153,7 +151,7 @@ const AddProduct = ({ onAdd }) => {
         type="number"
         value={product.originalPrice}
         onChange={handleChange}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
       />
       <input
         name="stock"
@@ -161,7 +159,7 @@ const AddProduct = ({ onAdd }) => {
         type="number"
         value={product.stock}
         onChange={handleChange}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
         required
       />
       <textarea
@@ -169,14 +167,14 @@ const AddProduct = ({ onAdd }) => {
         placeholder="Description"
         value={product.description}
         onChange={handleChange}
-        className="border-2 p-2 mb-3 w-2/3"
+        className="border-2 p-2 mb-3 w-full"
         required
       />
 
-      {/* Sizes Selection (Checkboxes) */}
+      {/* Sizes */}
       <div className="mb-10">
-        <label className="font-medium font-work">Sizes:</label>
-        <div className="flex gap-3 mt-2">
+        <label className="font-medium">Sizes:</label>
+        <div className="flex gap-4 flex-wrap mt-2">
           {sizesOptions.map((size) => (
             <label key={size} className="flex items-center">
               <input
@@ -194,7 +192,7 @@ const AddProduct = ({ onAdd }) => {
 
       <button
         type="submit"
-        className="text-[#202025] border-[1px] border-[#202025] rounded-md hover:bg-[#202025] hover:text-white px-4 py-2 w-2/3"
+        className="text-[#202025] border border-[#202025] rounded-md hover:bg-[#202025] hover:text-white px-4 py-2 w-full"
       >
         Add Product
       </button>

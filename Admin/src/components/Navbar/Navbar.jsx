@@ -1,29 +1,36 @@
 import React from "react";
 import { FaShoppingBag } from "react-icons/fa";
+import { LuCircleUserRound } from "react-icons/lu";
 import { CiSearch } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="container flex justify-between items-center py-4 px-16">
+    <nav className="sticky top-0 z-50 bg-white shadow-md w-full">
+      <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center py-4 px-6 sm:px-8 md:px-10">
         {/* Logo section */}
-        <div className="text-2xl flex items-center gap-3">
-          <FaShoppingBag />
-          <p className="font-cormorant uppercase font-medium tracking-wide">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-lg sm:text-xl md:text-2xl"
+        >
+          <FaShoppingBag className="text-xl sm:text-2xl" />
+          <p className="font-cormorant uppercase font-medium tracking-wide whitespace-nowrap">
             Sanchita Enterprises
           </p>
-        </div>
+        </Link>
 
-        {/* Search section */}
-        <div className="flex items-center gap-10 md:gap-4">
-          <button className="text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200">
+        {/* Search and Profile */}
+        <div className="flex items-center gap-4 sm:gap-6">
+          <button className="text-xl sm:text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200">
             <CiSearch />
           </button>
 
-          {/* Login Button */}
-          <button className="w-24 h-10 text-center font-work text-[#202025] border-[1px] border-[#202025] rounded-md hover:bg-[#202025] hover:text-white">
-            Login
-          </button>
+          <Link
+            to="/owner-profile"
+            className="text-xl sm:text-2xl hover:bg-black hover:text-white rounded-full p-2 duration-200"
+          >
+            <LuCircleUserRound />
+          </Link>
         </div>
       </div>
     </nav>

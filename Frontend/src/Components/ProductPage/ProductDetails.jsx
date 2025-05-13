@@ -1,3 +1,109 @@
+// import React, { useState } from "react";
+
+// const ProductDetailsTabs = () => {
+//   const [activeTab, setActiveTab] = useState("description");
+
+//   const tabs = [
+//     { id: "description", label: "Description" },
+//     { id: "material", label: "Material" },
+//     { id: "moreInfo", label: "More Information" },
+//   ];
+
+//   const content = {
+//     description: (
+//       <div className="font-work">
+//         <p className="font-semibold mb-2">
+//           Industrial-Grade | Lab-Tested | Safe When Handled as Directed
+//         </p>
+//         <p>
+//           Our chemicals are formulated using precision-engineered processes,
+//           ensuring high purity, consistent results, and maximum efficiency in
+//           textile applications. Whether used for dyeing, processing, or surface
+//           treatments, each product is designed to meet rigorous industrial
+//           standards.
+//         </p>
+//         <p className="mt-2">
+//           With minimal residue and optimal bonding properties, our solutions
+//           enhance fabric durability, texture, and appearance—making them ideal
+//           for commercial textile operations. Safe for use when handled correctly
+//           with protective measures.
+//         </p>
+//       </div>
+//     ),
+//     material: (
+//       <div className="font-work">
+//         <p className="font-semibold mb-2">Key Ingredients and Composition:</p>
+//         <ul className="list-disc pl-5 space-y-1">
+//           <li>
+//             High-purity active compounds suited for textile-grade reactions
+//           </li>
+//           <li>
+//             Stabilizers to maintain shelf life and performance consistency
+//           </li>
+//           <li>
+//             pH-balanced bases for compatibility with a wide range of fabrics
+//           </li>
+//           <li>
+//             Solvents and additives carefully chosen to ensure fabric integrity
+//           </li>
+//         </ul>
+//         <p className="mt-2">
+//           All materials are sourced from certified suppliers and undergo strict
+//           quality control. Our formulas are tested for performance, safety, and
+//           compliance with industrial norms.
+//         </p>
+//       </div>
+//     ),
+//     moreInfo: (
+//       <div className="font-work">
+//         <p className="font-semibold mb-2">Additional Information:</p>
+//         <ul className="list-disc pl-5 space-y-1">
+//           <li>Certified cruelty-free processes and responsible sourcing</li>
+//           <li>Certified cruelty-free processes and responsible sourcing</li>
+//           <li>
+//             Packaging designed using 100% recyclable and eco-friendly materials
+//           </li>
+//           <li>Formulated without harmful VOCs (Volatile Organic Compounds) </li>
+//         </ul>
+//         <p className="mt-2">
+//           Our products are designed not only to perform but also to respect the
+//           planet. Every formulation is made with environmental safety in mind.
+//           We believe in delivering excellence without compromise.
+//         </p>
+//       </div>
+//     ),
+//   };
+
+//   return (
+//     <div className="p-10 font-work w-3/5 mb-10 border-b">
+//       {/* Tabs */}
+//       <div
+//         className="flex border-b mb-8
+//        "
+//       >
+//         {tabs.map((tab) => (
+//           <button
+//             key={tab.id}
+//             onClick={() => setActiveTab(tab.id)}
+//             className={`px-5 py-4 font-medium ${
+//               activeTab === tab.id
+//                 ? "border-b-2 border-black text-black"
+//                 : "text-gray-500"
+//             }`}
+//           >
+//             {tab.label}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* Tab Content */}
+//       <div className="text-gray-700">{content[activeTab]}</div>
+//     </div>
+//   );
+// };
+
+// export default ProductDetailsTabs;
+
 import React, { useState } from "react";
 
 const ProductDetailsTabs = () => {
@@ -13,46 +119,44 @@ const ProductDetailsTabs = () => {
     description: (
       <div className="font-work">
         <p className="font-semibold mb-2">
-          Dermatologist-Tested | Clinically-Tested | Sensitive Skin-Friendly
+          Industrial-Grade | Lab-Tested | Safe When Handled as Directed
         </p>
         <p>
-          This dreamy milk is no ordinary{" "}
-          <a href="#" className="text-blue-500 underline">
-            toner
-          </a>
-          . It does more than hydrate and replenish—this toner restores skin’s
-          natural{" "}
-          <a href="#" className="text-blue-500 underline">
-            pH balance
-          </a>
-          , removes post-cleanse hard water residue, and lifts those last
-          remaining traces of the day’s makeup.
+          Our chemicals are formulated using precision-engineered processes,
+          ensuring high purity, consistent results, and maximum efficiency in
+          textile applications. Whether used for dyeing, processing, or surface
+          treatments, each product is designed to meet rigorous industrial
+          standards.
         </p>
         <p className="mt-2">
-          The gentle formula is filled with humectants that draw in moisture and
-          nourishing amino acids, vitamins, and minerals—perfect for sensitive
-          skin. This hydrating toner's milky texture leaves you feeling
-          velvety-soft (thanks to algae extract, bamboo extract, and coconut
-          water) and residue-free.
-        </p>
-        <p className="mt-2">
-          Skin’s happiest when its pH falls between 5.0-6.0. Baby Cheeks’ pH is
-          5.0-6.0 (we speak pH in a range because a formula’s pH can change
-          slightly over time).
+          With minimal residue and optimal bonding properties, our solutions
+          enhance fabric durability, texture, and appearance—making them ideal
+          for commercial textile operations. Safe for use when handled correctly
+          with protective measures.
         </p>
       </div>
     ),
     material: (
       <div className="font-work">
-        <p className="font-semibold mb-2">Key Materials:</p>
+        <p className="font-semibold mb-2">Key Ingredients and Composition:</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>Bamboo extract for hydration and soothing</li>
-          <li>Algae extract for its moisturizing properties</li>
-          <li>Coconut water for natural nourishment</li>
+          <li>
+            High-purity active compounds suited for textile-grade reactions
+          </li>
+          <li>
+            Stabilizers to maintain shelf life and performance consistency
+          </li>
+          <li>
+            pH-balanced bases for compatibility with a wide range of fabrics
+          </li>
+          <li>
+            Solvents and additives carefully chosen to ensure fabric integrity
+          </li>
         </ul>
         <p className="mt-2">
-          All materials are sustainably sourced and dermatologically tested to
-          ensure safety for sensitive skin.
+          All materials are sourced from certified suppliers and undergo strict
+          quality control. Our formulas are tested for performance, safety, and
+          compliance with industrial norms.
         </p>
       </div>
     ),
@@ -60,25 +164,26 @@ const ProductDetailsTabs = () => {
       <div className="font-work">
         <p className="font-semibold mb-2">Additional Information:</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>Certified cruelty-free and vegan</li>
-          <li>Free from parabens, sulfates, and artificial fragrances</li>
-          <li>Packaging made from 100% recyclable materials</li>
+          <li>Certified cruelty-free processes and responsible sourcing</li>
+          <li>Certified cruelty-free processes and responsible sourcing</li>
+          <li>
+            Packaging designed using 100% recyclable and eco-friendly materials
+          </li>
+          <li>Formulated without harmful VOCs (Volatile Organic Compounds) </li>
         </ul>
         <p className="mt-2">
-          This product is developed with the environment in mind, ensuring
-          minimal ecological impact without compromising quality.
+          Our products are designed not only to perform but also to respect the
+          planet. Every formulation is made with environmental safety in mind.
+          We believe in delivering excellence without compromise.
         </p>
       </div>
     ),
   };
 
   return (
-    <div className="p-10 font-work w-3/5 mb-10 border-b">
+    <div className="p-10 font-work w-full sm:w-3/5 mb-10 border-b">
       {/* Tabs */}
-      <div
-        className="flex border-b mb-8 
-       "
-      >
+      <div className="flex sm:flex-row flex-col border-b mb-8">
         {tabs.map((tab) => (
           <button
             key={tab.id}

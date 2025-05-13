@@ -32,6 +32,13 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
+const reviewSchema = new mongoose.Schema({
+  name: String,
+  rating: { type: Number, required: true },
+  review: String,
+  createdAt: { type: Date, default: Date.now },
+});
+
 const productSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
@@ -65,10 +72,17 @@ const productSchema = new mongoose.Schema(
     sizes: { type: [String], enum: ["Small", "Medium", "Large"] }, // Modify as needed
     image: { type: String, required: true },
     gallery: { type: [String], default: [] },
+    reviews: [reviewSchema],
+    averageRating: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
 
+productSchema.methods.calculateAverageRating = function () {
+  const sum = this.reviews.reduce((acc, curr) => acc + curr.rating, 0);
+  this.averageRating = this.reviews.length ? sum / this.reviews.length : 0;
+  return this.save();
+};
 const Product = mongoose.model("Product", productSchema);
 
 // Multer Storage Configuration
@@ -92,19 +106,6 @@ app.post("/api/products", upload, async (req, res) => {
     const { title, category, price, originalPrice, stock, description, sizes } =
       req.body;
 
-    // // Construct full image URLs
-    // const image = req.files["imageFile"]
-    //   ? `${req.protocol}://${req.get("host")}/uploads/${
-    //       req.files["imageFile"][0].filename
-    //     }`
-    //   : "";
-
-    // const gallery = req.files["galleryFiles"]
-    //   ? req.files["galleryFiles"].map(
-    //       (file) =>
-    //         `${req.protocol}://${req.get("host")}/uploads/${file.filename}`
-    //     )
-    //   : [];
     const baseUrl =
       process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
 
@@ -170,6 +171,27 @@ app.delete("/api/products/:id", async (req, res) => {
     return res.status(404).json({ message: "Product not found" });
   }
   res.status(200).json({ message: "Product deleted successfully" });
+});
+
+// Review Route
+app.post("/api/products/:id/review", async (req, res) => {
+  try {
+    const { name, rating, review } = req.body;
+
+    if (!name || !rating) {
+      return res.status(400).json({ message: "Name and rating required" });
+    }
+
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    product.reviews.push({ name, rating, review });
+    await product.calculateAverageRating();
+
+    res.status(201).json({ message: "Review added", product });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // Cart Routes
@@ -330,6 +352,26 @@ app.get("/api/orders/:userId", async (req, res) => {
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// Dummy Order Data
+const dummyOrders = {
+  12345: "Order Received",
+  54321: "Dispatched",
+  11111: "In Process",
+  22222: "Delivered",
+};
+
+// Track Order Route
+app.get("/api/orders/track/:orderId", (req, res) => {
+  const { orderId } = req.params;
+  const status = dummyOrders[orderId];
+
+  if (status) {
+    res.json({ status });
+  } else {
+    res.status(404).json({ status: "Order not found" });
   }
 });
 

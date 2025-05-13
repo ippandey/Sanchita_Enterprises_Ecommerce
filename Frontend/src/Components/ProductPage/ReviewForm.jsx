@@ -1,19 +1,49 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { addReviewToProduct } from "./../../services/api"; // Make sure this exists
 
 const ReviewForm = () => {
+  const { id } = useParams(); // productId from URL
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [name, setName] = useState("");
+
+  const handleSubmit = async () => {
+    if (!rating || !name.trim()) {
+      alert("Please fill in the required fields (name and rating)");
+      return;
+    }
+
+    try {
+      await addReviewToProduct(id, {
+        name,
+        rating,
+        review: reviewText, // Optional
+      });
+      alert("Review submitted!");
+      setRating(0);
+      setReviewText("");
+      setName("");
+      setIsOpen(false);
+      // You could refresh reviews here if you fetch them separately
+    } catch (error) {
+      console.error("Error submitting review:", error); // log the actual error
+      alert("Failed to submit review");
+    }
+  };
 
   return (
-    <div className="w-full bg-[#f8f8f8] mx-auto p-4">
-      <h3 className="font-cormorant text-3xl text-center my-8">
+    <div className="w-full bg-[#f8f8f8] mx-auto p-6">
+      <h3 className="font-cormorant text-3xl sm:text-4xl text-center my-8">
         Customer Reviews
       </h3>
+
       {!isOpen ? (
-        <div className="flex justify-center gap-10 items-center">
-          <div className="items-center border-r pr-10">
-            <div className="flex">
+        <div className="flex flex-col sm:flex-row justify-center gap-10 items-center">
+          <div className="sm:border-r pr-10 sm:w-auto w-full text-center mb-4 sm:mb-0">
+            <div className="flex justify-center">
               {[...Array(5)].map((_, i) => (
                 <AiOutlineStar key={i} className="h-5 w-5 text-[#202025]" />
               ))}
@@ -29,12 +59,14 @@ const ReviewForm = () => {
         </div>
       ) : (
         <div className="p-4 items-center justify-center text-center">
-          <h2 className="text-xl font-semibold font-work mb-4">
+          <h2 className="text-xl sm:text-2xl font-semibold font-work mb-4">
             Write a review
           </h2>
+
+          {/* Rating Stars */}
           <div className="mb-4 font-work">
-            <p className="text-[#202025s] mb-2">Rating</p>
-            <div className="flex text-center items-center justify-center">
+            <p className="text-[#202025] mb-2">Rating</p>
+            <div className="flex justify-center items-center">
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
@@ -50,65 +82,53 @@ const ReviewForm = () => {
               ))}
             </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm text-gray-500 mb-1" htmlFor="title">
-              Review Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-            />
-          </div>
+
+          {/* Review Text */}
           <div className="mb-4">
             <label
-              className="block text-sm text-gray-500 mb-1"
+              className="block text-sm sm:text-base text-gray-700 mb-2"
               htmlFor="review"
             >
-              Review
+              Review (optional)
             </label>
             <textarea
               id="review"
               rows="4"
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-            ></textarea>
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+            />
           </div>
+
+          {/* Name Input */}
           <div className="mb-4">
-            <label className="block text-sm text-gray-500 mb-1" htmlFor="media">
-              Picture/Video (optional)
-            </label>
-            <div className="border border-dashed border-gray-300 rounded-md p-4 text-center">
-              <p className="text-gray-500">Upload</p>
-            </div>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm text-gray-500 mb-1" htmlFor="name">
-              Name (displayed publicly like John Smith)
+            <label
+              className="block text-sm sm:text-base text-gray-700 mb-2"
+              htmlFor="name"
+            >
+              Name
             </label>
             <input
               type="text"
               id="name"
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm text-gray-500 mb-1" htmlFor="email">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-            />
-          </div>
-          <div className="flex justify-between">
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
             <button
               onClick={() => setIsOpen(false)}
-              className="bg-gray-200 text-black px-4 py-2 rounded-md"
+              className="bg-gray-200 text-black px-6 py-3 rounded-md w-full sm:w-auto"
             >
               Cancel Review
             </button>
-            <button className="bg-black text-white px-4 py-2 rounded-md">
+            <button
+              onClick={handleSubmit}
+              className="bg-black text-white px-6 py-3 rounded-md w-full sm:w-auto"
+            >
               Submit Review
             </button>
           </div>

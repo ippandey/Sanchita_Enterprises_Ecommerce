@@ -9,6 +9,7 @@ import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import ProfilePage from "../Pages/ProfilePage";
 import AuthRedirect from "../Pages/AuthRedirect";
+import TrackOrder from "../Pages/TrackOrder";
 
 const Routers = () => {
   return (
@@ -23,6 +24,7 @@ const Routers = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/auth" element={<AuthRedirect />} />
+      <Route path="/track-order" element={<TrackOrder />} />
     </Routes>
   );
 };
